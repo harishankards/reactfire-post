@@ -3,6 +3,9 @@ import './App.css';
 import Chat from './Chat.js';
 import firebase from 'firebase/app';
 import 'firebase/database';
+import 'bootstrap/dist/css/bootstrap.css';
+global.jQuery = require('jquery');
+require ('bootstrap');
 
 class App extends Component {
   constructor(props){
@@ -20,9 +23,12 @@ class App extends Component {
   render() {
     return (
       <div>
-        welcome to React-fire chat app
+      <ul className="nav nav-pills">
+        <li role="presentation" className="active"><a href="">Home</a></li>
+        <li role="presentation"><a href="">Profile</a></li>
+        <li role="presentation"><a href="">Messages</a></li>
+      </ul>
         <Chat />
-
       </div>
     );
   }

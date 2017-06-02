@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import * as firebase from 'firebase';
+import './chat.css';
 
 
 class Chat extends Component{
@@ -45,18 +46,24 @@ class Chat extends Component{
     //})
   }
   render(){
-    const currentMessage = this.state.messages.map((message) => {
+    const currentMessage = this.state.messages.map((message,i) => {
         return(
-          <li key={message.id}>{message.text}</li>
+          <span key={message.id}>{message.text} </span>
         )
     })
     return(
       <div>
-        <ol>
-          {currentMessage}
-        </ol>
-          <input onChange={this.updateMessage} type="text" placeholder="Enter your message..." />
-          <button onClick={this.submitMessage}> Submit </button>
+        <div className="panel panel-default post-body">
+          <div className="panel-body">
+            {currentMessage}
+          </div>
+        </div>
+        <div className= "panel panel-default post-editor">
+          <div className="panel-body">
+            <textarea className="form-control post-editor-input" onChange={this.updateMessage} type="text" placeholder="Enter your message..." />
+            <button className="btn btn-success post-editor-button" onClick={this.submitMessage}> Submit </button>
+          </div>
+        </div>
       </div>
     );
   }
