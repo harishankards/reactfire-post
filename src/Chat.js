@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import * as firebase from 'firebase';
+
 
 class Chat extends Component{
   constructor(props,context){
@@ -11,6 +13,19 @@ class Chat extends Component{
       ]
     }
   }
+
+  componentDidMount(){
+    console.log('componentDidMount');
+    firebase.database().ref('messages/').on('value',(snapshot)=>{
+      const currentMessages = snapshot.val()
+      if(currentMessages != null){
+        this.setState({
+          messages:currentMessages
+        })
+      }
+    })
+  }
+
   updateMessage(event){
     this.setState({
       message: event.target.value
@@ -22,11 +37,12 @@ class Chat extends Component{
       id: this.state.messages.length,
       text: this.state.message
     }
-    var list= Object.assign([],this.state.messages)
-    list.push(nextMessage)
-    this.setState({
-      messages: list
-    })
+    firebase.database().ref('messages/'+nextMessage.id).set(nextMessage)
+  //  var list= Object.assign([],this.state.messages)
+    //list.push(nextMessage)
+    //this.setState({
+    //  messages: list
+    //})
   }
   render(){
     const currentMessage = this.state.messages.map((message) => {
